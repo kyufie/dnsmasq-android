@@ -55,6 +55,8 @@
 #ifndef CONFFILE
 #if defined(__FreeBSD__)
 #define CONFFILE "/usr/local/etc/dnsmasq.conf"
+#elif defined(__ANDROID__) && defined(FORCE_HARDCODED_CONFFILE)
+#define CONFFILE "/data/misc/dhcp/dnsmasq.conf"
 #else
 #define CONFFILE "/etc/dnsmasq.conf"
 #endif

@@ -2456,6 +2456,11 @@ void read_opts(int argc, char** argv, char* compile_opts) {
     add_txt("authors.bind", "Simon Kelley");
     add_txt("copyright.bind", COPYRIGHT);
 
+ #ifdef FORCE_HARDCODED_CONFFILE
+    /* Ignore any cli options if we're using hardcoded configuration file */
+    goto read_conffile;
+#endif
+
     while (1) {
 #ifdef HAVE_GETOPT_LONG
         option = getopt_long(argc, argv, OPTSTRING, opts, NULL);
@@ -2503,6 +2508,7 @@ void read_opts(int argc, char** argv, char* compile_opts) {
         }
     }
 
+read_conffile:
     if (conffile) one_file(conffile, nest, 0);
 
     /* port might not be known when the address is parsed - fill in here */
