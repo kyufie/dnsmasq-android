@@ -23,13 +23,13 @@ else
     $(info #########################################)
 endif
 
+# For Termux-based build env
+# Termux adds rpath by default, pointing towards Termux's own
+# lib directory.
+# We don't want to trip SELinux at link-time by searching
+# that directory through rpath
 dnsmasq: $(SRCS)
 	$(CC) $(CFLAGS) -llog -o $@ $^
-	# Fix for Termux-based build env
-	# Termux adds rpath by default pointing towards Termux's own
-	# lib directory.
-	# We don't want to trip SELinux at link-time by searching
-	# that directory through rpath
 	patchelf --remove-rpath $@
 
 clean:
