@@ -1,16 +1,16 @@
-SRCS := cache.c \
-    dhcp.c \
-    dnsmasq.c \
-    forward.c \
-    helper.c \
-    lease.c \
-    log.c \
-    netlink.c \
-    network.c \
-    option.c \
-    rfc1035.c \
-    rfc2131.c \
-    util.c
+OBJS := cache.o \
+    dhcp.o \
+    dnsmasq.o \
+    forward.o \
+    helper.o \
+    lease.o \
+    log.o \
+    netlink.o \
+    network.o \
+    option.o \
+    rfc1035.o \
+    rfc2131.o \
+    util.o
 
 CFLAGS := -O2 -g -W -Wall -D__ANDROID__ -DIPV6 -DNO_SCRIPT \
     -D_BSD_SOURCE -Wno-unused-variable -Wno-unused-parameter
@@ -28,10 +28,10 @@ endif
 # lib directory.
 # We don't want to trip SELinux at link-time by making
 # the linker search through that directory.
-dnsmasq: $(SRCS)
+dnsmasq: $(OBJS)
 	$(CC) $(CFLAGS) -llog -o $@ $^
 	command -v patchelf > /dev/null && patchelf --remove-rpath $@
 
 clean:
-	rm dnsmasq
+	rm $(OBJS) dnsmasq
 .PHONY: clean
