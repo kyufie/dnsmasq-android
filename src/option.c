@@ -2508,7 +2508,9 @@ void read_opts(int argc, char** argv, char* compile_opts) {
         }
     }
 
+#ifdef FORCE_HARDCODED_CONFFILE
 read_conffile:
+#endif
     if (conffile) one_file(conffile, nest, 0);
 
     /* port might not be known when the address is parsed - fill in here */
